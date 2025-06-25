@@ -1,0 +1,81 @@
+import "@esri/calcite-components/dist/components/calcite-tabs";
+import "@esri/calcite-components/dist/components/calcite-tab";
+import "@esri/calcite-components/dist/components/calcite-tab-nav";
+import "@esri/calcite-components/dist/components/calcite-tab-title";
+import "@esri/calcite-components/dist/calcite/calcite.css";
+import {
+  CalciteTab,
+  CalciteTabs,
+  CalciteTabNav,
+  CalciteTabTitle,
+} from "@esri/calcite-components-react";
+import { useEffect, useState } from "react";
+import { lotLayer } from "../layers";
+import LotChart from "./LotChart";
+
+import "../index.css";
+import "../App.css";
+import StructureChart from "./StructureChart";
+import NloChart from "./NloChart";
+import ViaductChart from "./ViaductChart";
+import TreeChart from "./TreeChart";
+import UtilityChart from "./UtilityChart";
+
+function MainChart() {
+  const [lotLayerLoaded, setLotLayerLoaded] = useState<any>();
+  useEffect(() => {
+    lotLayer.load().then(() => {
+      setLotLayerLoaded(lotLayer.loadStatus);
+    });
+  });
+
+  return (
+    <>
+      <CalciteTabs
+        style={{ width: "37%" }}
+        slot="panel-end"
+        layout="center"
+        scale="m"
+      >
+        <CalciteTabNav slot="title-group" id="thetabs">
+          <CalciteTabTitle class="Land">Land</CalciteTabTitle>
+          <CalciteTabTitle class="Structure">Structure</CalciteTabTitle>
+          <CalciteTabTitle class="NLO">NLO</CalciteTabTitle>
+          <CalciteTabTitle class="Tree">Tree</CalciteTabTitle>
+          <CalciteTabTitle class="Utility">Utility</CalciteTabTitle>
+          <CalciteTabTitle class="Viaduct">Viaduct</CalciteTabTitle>
+        </CalciteTabNav>
+
+        {/* CalciteTab: Lot */}
+        <CalciteTab>{lotLayerLoaded === "loaded" && <LotChart />}</CalciteTab>
+
+        {/* CalciteTab: Structure */}
+        <CalciteTab>
+          <StructureChart />
+        </CalciteTab>
+
+        {/* CalciteTab: Non-Land Owner */}
+        <CalciteTab>
+          <NloChart />
+        </CalciteTab>
+
+        {/* CalciteTab: Tree */}
+        <CalciteTab>
+          <TreeChart />
+        </CalciteTab>
+
+        {/* CalciteTab: Utility */}
+        <CalciteTab>
+          <UtilityChart />
+        </CalciteTab>
+
+        {/* CalciteTab: Viaduct */}
+        <CalciteTab>
+          <ViaductChart />
+        </CalciteTab>
+      </CalciteTabs>
+    </>
+  );
+}
+
+export default MainChart;
