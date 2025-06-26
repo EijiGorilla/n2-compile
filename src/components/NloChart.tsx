@@ -14,6 +14,7 @@ import {
   thousands_separators,
 } from "../Query";
 import {
+  chard_width,
   cutoff_days,
   nloStatusField,
   primaryLabelColor,
@@ -125,7 +126,7 @@ const NloChart = memo(() => {
         legendValueText: "{valuePercentTotal.formatNumber('#.')}% ({value})",
         radius: am5.percent(45), // outer radius
         innerRadius: am5.percent(28),
-        scale: 2.2,
+        scale: 2,
       })
     );
     pieSeriesRef.current = pieSeries;
@@ -368,10 +369,11 @@ const NloChart = memo(() => {
       <div
         id={chartID}
         style={{
+          width: chard_width,
           height: "50vh",
           backgroundColor: "rgb(0,0,0,0)",
           color: "white",
-          marginBottom: "-1.5vh",
+          // marginBottom: "-1.5vh",
           marginTop: "50px",
         }}
       ></div>

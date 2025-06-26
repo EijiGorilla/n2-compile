@@ -365,7 +365,7 @@ const LotProgressChart = () => {
         id={chartID}
         style={{
           height: "40vh",
-          width: "70%",
+          width: "65%",
           backgroundColor: "#2b2b2b",
           color: "white",
           position: "fixed",

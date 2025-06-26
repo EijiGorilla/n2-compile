@@ -1,3 +1,6 @@
+// chart width
+export const chard_width = "26vw";
+
 // Updated Dates
 export const updatedDateCategoryNames = [
   "Land Acquisition",

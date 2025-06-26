@@ -14,6 +14,7 @@ import {
   dateUpdate,
 } from "../Query";
 import {
+  chard_width,
   cutoff_days,
   primaryLabelColor,
   updatedDateCategoryNames,
@@ -124,7 +125,7 @@ const StructureChart = memo(() => {
         legendValueText: "{valuePercentTotal.formatNumber('#.')}% ({value})",
         radius: am5.percent(45), // outer radius
         innerRadius: am5.percent(28),
-        scale: 2.2,
+        scale: 2,
       })
     );
     pieSeriesRef.current = pieSeries;
@@ -366,10 +367,11 @@ const StructureChart = memo(() => {
       <div
         id={chartID}
         style={{
+          width: chard_width,
           height: "50vh",
           backgroundColor: "rgb(0,0,0,0)",
           color: "white",
-          marginTop: "6%",
+          marginTop: "30px",
           marginBottom: "10%",
         }}
       ></div>

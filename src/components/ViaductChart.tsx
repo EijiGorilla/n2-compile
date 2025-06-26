@@ -16,6 +16,7 @@ import {
   stationStructureDisplay,
 } from "../Query";
 import {
+  chard_width,
   cutoff_days,
   primaryLabelColor,
   updatedDateCategoryNames,
@@ -407,8 +408,8 @@ const ViaductChart = () => {
       <div
         id={chartID}
         style={{
-          width: "23vw",
-          height: "55vh",
+          width: chard_width,
+          height: "62vh",
           backgroundColor: "rgb(0,0,0,0)",
           color: "white",
           marginLeft: "20px",

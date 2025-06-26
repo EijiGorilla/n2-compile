@@ -40,7 +40,14 @@ function MainChart() {
   return (
     <>
       <CalciteTabs
-        style={{ width: "37%" }}
+        style={{
+          borderStyle: "solid",
+          borderRightWidth: 5,
+          borderLeftWidth: 5,
+          borderBottomWidth: 5,
+          borderTopWidth: 0,
+          borderColor: "#555555",
+        }}
         slot="panel-end"
         layout="center"
         scale="m"

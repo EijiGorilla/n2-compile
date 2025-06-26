@@ -17,6 +17,7 @@ import {
 } from "../Query";
 import "../App.css";
 import {
+  chard_width,
   cutoff_days,
   primaryLabelColor,
   updatedDateCategoryNames,
@@ -155,7 +156,7 @@ const TreeChart = () => {
         legendValueText: "{valuePercentTotal.formatNumber('#.')}% ({value})",
         radius: am5.percent(45), // outer radius
         innerRadius: am5.percent(28),
-        scale: 2.2,
+        scale: 2.1,
       })
     );
     pieSeriesRef.current = pieSeries;
@@ -386,7 +387,7 @@ const TreeChart = () => {
         legendValueText: "{valuePercentTotal.formatNumber('#.')}% ({value})",
         radius: am5.percent(45), // outer radius
         innerRadius: am5.percent(28),
-        scale: 2.2,
+        scale: 1.6,
       })
     );
     pieSeriesRef_compen.current = pieSeries;
@@ -648,6 +649,7 @@ const TreeChart = () => {
       <div
         id={chartID_compen}
         style={{
+          width: chard_width,
           height: "36vh",
           backgroundColor: "rgb(0,0,0,0)",
           color: "white",

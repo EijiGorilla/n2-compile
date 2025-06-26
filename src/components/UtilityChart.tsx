@@ -23,6 +23,7 @@ import {
   utilityTypeChart,
 } from "../Query";
 import {
+  chard_width,
   cutoff_days,
   primaryLabelColor,
   updatedDateCategoryNames,
@@ -774,7 +775,7 @@ const UtilityChart = () => {
       <div
         id={chartID_line}
         style={{
-          width: "23vw",
+          width: chard_width,
           height: "33vh",
           backgroundColor: "rgb(0,0,0,0)",
           color: "white",

@@ -22,6 +22,7 @@ import "@esri/calcite-components/dist/components/calcite-label";
 import "@esri/calcite-components/dist/components/calcite-checkbox";
 import { CalciteLabel, CalciteCheckbox } from "@esri/calcite-components-react";
 import {
+  chard_width,
   cpField,
   cutoff_days,
   lotStatusField,
@@ -190,7 +191,7 @@ const LotChart = () => {
         legendValueText: "{valuePercentTotal.formatNumber('#.')}% ({value})",
         radius: am5.percent(45), // outer radius
         innerRadius: am5.percent(28),
-        scale: 2.5,
+        scale: 2,
       })
     );
     pieSeriesRef.current = pieSeries;
@@ -448,10 +449,11 @@ const LotChart = () => {
       <div
         id={chartID}
         style={{
+          width: chard_width,
           height: "50vh",
           backgroundColor: "rgb(0,0,0,0)",
           color: "white",
-          marginTop: "8%",
+          marginTop: "35px",
           marginBottom: "10%",
         }}
       ></div>
