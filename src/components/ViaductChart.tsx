@@ -13,6 +13,7 @@ import {
   thousands_separators,
   viaductTypeChart,
   dateUpdate,
+  stationStructureDisplay,
 } from "../Query";
 import {
   cutoff_days,
@@ -64,6 +65,8 @@ const ViaductChart = () => {
     generateTotalProgress(contractpackages).then((response: any) => {
       setProgress(response);
     });
+
+    stationStructureDisplay(contractpackages);
   }, [contractpackages]);
 
   // Define parameters

@@ -468,18 +468,18 @@ let customContentLot = new CustomContent({
     //var date = dateFormat(daten, 'MM-dd-yyyy');
     //<li>Hand-Over Date: <b>${date}</b></li><br>
 
-    return `<ul><li>Handed-Over Area: <b>${handOverArea} %</b></li><br>
-    <li>Hand-Over Date: <b>${date}</b></li><br>
+    return `<ul><li>Handed-Over Area: <b>${handOverArea} %</b></li>
+    <li>Hand-Over Date: <b>${date}</b></li>
               <li>Status:           <b>${
                 statusLot >= 0 ? lotStatusArray[statusLot - 1] : ""
-              }</b></li><br>
+              }</b></li>
               <li>Land Use:         <b>${
                 landUse >= 1 ? landUseArray[landUse - 1] : ""
-              }</b></li><br>
-              <li>Municipality:     <b>${municipal}</b></li><br>
-              <li>Barangay:         <b>${barangay}</b></li><br>
+              }</b></li>
+              <li>Municipality:     <b>${municipal}</b></li>
+              <li>Barangay:         <b>${barangay}</b></li>
               <li>Land Owner:       <b>${landOwner}</b>
-              <li>CP:               <b>${cpNo}</b><br>
+              <li>CP:               <b>${cpNo}</b>
               <li>Endorsed:         <b>${endorsed}</b></li></ul>`;
   },
 });
@@ -2555,19 +2555,17 @@ const colorViaduct = [
   [0, 112, 255, 0.8], // Completed
 ];
 
-function renderViaductLayer() {
-  const renderer = new UniqueValueRenderer({
-    field: "Status",
-  });
-
-  for (var i = 0; i < colorViaduct.length; i++) {
-    renderer.addUniqueValueInfo({
-      value: i + 1,
+const viaduct_renderer = new UniqueValueRenderer({
+  field: "Status",
+  uniqueValueInfos: [
+    {
+      value: 1,
+      label: "To be Constructed",
       symbol: new MeshSymbol3D({
         symbolLayers: [
           new FillSymbol3DLayer({
             material: {
-              color: colorViaduct[i],
+              color: [225, 225, 225, 0.1],
               colorMixMode: "replace",
             },
             edges: new SolidEdges3D({
@@ -2576,10 +2574,26 @@ function renderViaductLayer() {
           }),
         ],
       }),
-    });
-  }
-  viaductLayer.renderer = renderer;
-}
+    },
+    {
+      value: 4,
+      label: "Completed",
+      symbol: new MeshSymbol3D({
+        symbolLayers: [
+          new FillSymbol3DLayer({
+            material: {
+              color: [0, 112, 255, 0.8],
+              colorMixMode: "replace",
+            },
+            edges: new SolidEdges3D({
+              color: [225, 225, 225, 0.3],
+            }),
+          }),
+        ],
+      }),
+    },
+  ],
+});
 
 export const viaductLayer = new SceneLayer({
   portalItem: {
@@ -2592,10 +2606,9 @@ export const viaductLayer = new SceneLayer({
     mode: "absolute-height", //absolute-height, relative-to-ground
   },
   title: "Viaduct",
+  renderer: viaduct_renderer,
   labelsVisible: false,
 });
-
-renderViaductLayer();
 
 /* Building Scene Layer for station structures */
 export const buildingLayer = new BuildingSceneLayer({
@@ -2628,10 +2641,10 @@ export const popuTemplate = {
     {
       type: "fields",
       fieldInfos: [
-        // {
-        //   fieldName: 'target_date',
-        //   label: 'Target Date',
-        // },
+        {
+          fieldName: "Status",
+          label: "Construction Status",
+        },
         {
           fieldName: "Category",
           label: "Category",
@@ -2644,14 +2657,6 @@ export const popuTemplate = {
           fieldName: "BldgLevel",
           label: "Building Level",
         },
-        {
-          fieldName: "StructureLevel",
-          label: "Structure Level",
-        },
-        // {
-        //   fieldName: 'P6ID',
-        //   label: 'P6 ID',
-        // },
       ],
     },
   ],
@@ -2666,32 +2671,63 @@ const colorStatus = [
 
 const renderer = new UniqueValueRenderer({
   field: "Status",
-});
-
-for (var i = 0; i < colorStatus.length; i++) {
-  renderer.addUniqueValueInfo({
-    value: i + 1,
-    symbol: new MeshSymbol3D({
-      symbolLayers: [
-        new FillSymbol3DLayer({
-          material: {
-            color: colorStatus[i],
-            colorMixMode: "replace",
-          },
-          edges: new SolidEdges3D({
-            color: [225, 225, 225, 0.3],
+  uniqueValueInfos: [
+    {
+      value: 1,
+      symbol: new MeshSymbol3D({
+        symbolLayers: [
+          new FillSymbol3DLayer({
+            material: {
+              color: colorStatus[0],
+              colorMixMode: "replace",
+            },
+            edges: new SolidEdges3D({
+              color: [225, 225, 225, 0.3],
+            }),
           }),
-        }),
-      ],
-    }),
-  });
-}
+        ],
+      }),
+    },
+    {
+      value: 2,
+      symbol: new MeshSymbol3D({
+        symbolLayers: [
+          new FillSymbol3DLayer({
+            material: {
+              color: colorStatus[1],
+              colorMixMode: "replace",
+            },
+            edges: new SolidEdges3D({
+              color: [225, 225, 225, 0.3],
+            }),
+          }),
+        ],
+      }),
+    },
+    {
+      value: 4,
+      symbol: new MeshSymbol3D({
+        symbolLayers: [
+          new FillSymbol3DLayer({
+            material: {
+              color: colorStatus[3],
+              colorMixMode: "replace",
+            },
+            edges: new SolidEdges3D({
+              color: [225, 225, 225, 0.3],
+            }),
+          }),
+        ],
+      }),
+    },
+  ],
+});
 
 buildingLayer.when(() => {
   buildingLayer.allSublayers.forEach((layer: any) => {
     switch (layer.modelName) {
       case "FullModel":
-        layer.visible = false;
+        layer.visible = true;
         break;
 
       case "Overview":

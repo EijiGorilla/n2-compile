@@ -1,18 +1,25 @@
 import {
+  buildingLayer,
   colorsCompen,
   colorsCutting,
+  columnsLayer,
   dateTable,
+  floorsLayer,
   lotLayer,
   lotStatusArray,
   ngcp_tagged_structureLayer,
   nloLayer,
   statusLotColor,
+  stColumnLayer,
+  stFoundationLayer,
+  stFramingLayer,
   structureLayer,
   treeCompensationLayer,
   treeCuttingLayer,
   utilityLineLayer,
   utilityPointLayer,
   viaductLayer,
+  wallsLayer,
 } from "./layers";
 import StatisticDefinition from "@arcgis/core/rest/support/StatisticDefinition";
 import * as am5 from "@amcharts/amcharts5";
@@ -263,38 +270,6 @@ export async function generateHandedOverArea(
     return value;
   });
 }
-
-// For Lot MoA Chart
-export const statusMOA: String[] = [
-  "For Negotiation",
-  "Expropriation",
-  "Donation",
-  "CA 141",
-  "No Need to Acquire",
-];
-
-export const statusMoaLotChart = [
-  {
-    category: statusMOA[0],
-    value: 1,
-  },
-  {
-    category: statusMOA[1],
-    value: 2,
-  },
-  {
-    category: statusMOA[2],
-    value: 3,
-  },
-  {
-    category: statusMOA[3],
-    value: 4,
-  },
-  {
-    category: statusMOA[4],
-    value: 5,
-  },
-];
 
 // For monthly progress chart of lot
 export async function generateLotProgress(contractp: any) {
@@ -581,94 +556,6 @@ export async function generateStrucNumber() {
     const totaln = stats.total_struc_N;
     const percPTE = Number(((pte / totaln) * 100).toFixed(0));
     return [percPTE, pte, totaln];
-  });
-}
-
-const statusMoaStructure = [
-  "For Negotiation",
-  "Expropriation",
-  "Donation",
-  "No Need to Acquire",
-];
-
-export const statusMoaStructureChart = [
-  {
-    category: statusMoaStructure[0],
-    value: 1,
-  },
-  {
-    category: statusMoaStructure[1],
-    value: 2,
-  },
-  {
-    category: statusMoaStructure[2],
-    value: 3,
-  },
-  {
-    category: statusMoaStructure[3],
-    value: 4,
-  },
-];
-
-export async function generateStrucMoaData() {
-  var total_nego_lot = new StatisticDefinition({
-    onStatisticField: "CASE WHEN MoA = 1 THEN 1 ELSE 0 END",
-    outStatisticFieldName: "total_nego_lot",
-    statisticType: "sum",
-  });
-
-  var total_expro_lot = new StatisticDefinition({
-    onStatisticField: "CASE WHEN MoA = 2 THEN 1 ELSE 0 END",
-    outStatisticFieldName: "total_expro_lot",
-    statisticType: "sum",
-  });
-
-  var total_donate_lot = new StatisticDefinition({
-    onStatisticField: "CASE WHEN MoA = 3 THEN 1 ELSE 0 END",
-    outStatisticFieldName: "total_donate_lot",
-    statisticType: "sum",
-  });
-
-  var total_noneed_lot = new StatisticDefinition({
-    onStatisticField: "CASE WHEN MoA = 4 THEN 1 ELSE 0 END",
-    outStatisticFieldName: "total_noneed_lot",
-    statisticType: "sum",
-  });
-
-  var query = structureLayer.createQuery();
-  query.outStatistics = [
-    total_nego_lot,
-    total_expro_lot,
-    total_donate_lot,
-    total_noneed_lot,
-  ];
-  query.returnGeometry = true;
-  return structureLayer.queryFeatures(query).then((response: any) => {
-    var stats = response.features[0].attributes;
-    const nego = stats.total_nego_lot;
-    const expro = stats.total_expro_lot;
-    const donate = stats.total_donate_lot;
-    const noneed = stats.total_noneed_lot;
-
-    const compile = [
-      {
-        category: statusMoaStructure[0],
-        value: nego,
-      },
-      {
-        category: statusMoaStructure[1],
-        value: expro,
-      },
-      {
-        category: statusMoaStructure[2],
-        value: donate,
-      },
-      {
-        category: statusMoaStructure[3],
-        value: noneed,
-      },
-    ];
-    return compile;
   });
 }
 
@@ -1672,6 +1559,50 @@ export const dateFormat = (inputDate: any, format: any) => {
 
   return format;
 };
+
+// station structures
+export const layerVisibleTrue = () => {
+  stColumnLayer.visible = true;
+  stFoundationLayer.visible = true;
+  stFramingLayer.visible = true;
+  floorsLayer.visible = true;
+  wallsLayer.visible = true;
+  columnsLayer.visible = true;
+  buildingLayer.visible = true;
+};
+
+const layerVisibleFalse = () => {
+  stColumnLayer.visible = false;
+  stFoundationLayer.visible = false;
+  stFramingLayer.visible = false;
+  floorsLayer.visible = false;
+  wallsLayer.visible = false;
+  buildingLayer.visible = false;
+};
+export async function stationStructureDisplay(contractcp: any) {
+  const queryExpression = "CP = '" + contractcp + "'";
+  const queryAll = "1=1";
+
+  if (contractcp === "All") {
+    stColumnLayer.definitionExpression = queryAll;
+    stFoundationLayer.definitionExpression = queryAll;
+    stFramingLayer.definitionExpression = queryAll;
+    columnsLayer.definitionExpression = queryAll;
+    floorsLayer.definitionExpression = queryAll;
+    wallsLayer.definitionExpression = queryAll;
+
+    layerVisibleFalse();
+  } else {
+    stColumnLayer.definitionExpression = queryExpression;
+    stFoundationLayer.definitionExpression = queryExpression;
+    stFramingLayer.definitionExpression = queryExpression;
+    columnsLayer.definitionExpression = queryExpression;
+    floorsLayer.definitionExpression = queryExpression;
+    wallsLayer.definitionExpression = queryExpression;
+
+    layerVisibleTrue();
+  }
+}
 
 // Thousand separators function
 export function thousands_separators(num: any) {

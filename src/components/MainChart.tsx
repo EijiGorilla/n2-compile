@@ -10,7 +10,7 @@ import {
   CalciteTabTitle,
 } from "@esri/calcite-components-react";
 import { useEffect, useState } from "react";
-import { lotLayer } from "../layers";
+import { buildingLayer, lotLayer } from "../layers";
 import LotChart from "./LotChart";
 
 import "../index.css";
@@ -23,6 +23,14 @@ import UtilityChart from "./UtilityChart";
 
 function MainChart() {
   const [lotLayerLoaded, setLotLayerLoaded] = useState<any>();
+  const [buildingLayerLoaded, setBuildingLayerLoaded] = useState<any>(); // 'loaded'
+
+  useEffect(() => {
+    buildingLayer.load().then(() => {
+      setBuildingLayerLoaded(buildingLayer.loadStatus);
+    });
+  });
+
   useEffect(() => {
     lotLayer.load().then(() => {
       setLotLayerLoaded(lotLayer.loadStatus);
@@ -71,7 +79,7 @@ function MainChart() {
 
         {/* CalciteTab: Viaduct */}
         <CalciteTab>
-          <ViaductChart />
+          {buildingLayerLoaded === "loaded" ? <ViaductChart /> : ""}
         </CalciteTab>
       </CalciteTabs>
     </>
