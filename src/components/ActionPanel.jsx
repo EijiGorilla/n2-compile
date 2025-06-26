@@ -20,6 +20,7 @@ import { defineActions } from "../Query";
 import {
   ngcp_tagged_structureLayer,
   ngcp_working_area,
+  prowOthersLayer,
   utilityLineNGCP,
 } from "../layers";
 import LotProgressChart from "./LotProgressChart";
@@ -199,6 +200,12 @@ function ActionPanel() {
                   });
               } else if (id === "full-extent-ngcpline") {
                 arcgisScene?.goTo(utilityLineNGCP.fullExtent).catch((error) => {
+                  if (error.name !== "AbortError") {
+                    console.error(error);
+                  }
+                });
+              } else if (id === "full-extent-sapangbalenriver") {
+                arcgisScene?.goTo(prowOthersLayer.fullExtent).catch((error) => {
                   if (error.name !== "AbortError") {
                     console.error(error);
                   }

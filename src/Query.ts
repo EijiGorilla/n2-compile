@@ -1656,6 +1656,18 @@ export function highlightRemove(layer: any) {
 
 export function defineActions(event: any) {
   const { item } = event;
+  if (item.title === "Sapang Balen River Realignment") {
+    item.actionsSections = new Collection([
+      new Collection([
+        new ActionButton({
+          title: "Zoom to Area",
+          icon: "zoom-in-fixed",
+          id: "full-extent-sapangbalenriver",
+        }),
+      ]),
+    ]);
+  }
+
   if (item.title === "NGCP Line") {
     item.actionsSections = new Collection([
       new Collection([

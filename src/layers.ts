@@ -206,6 +206,28 @@ export const prowLayer = new FeatureLayer({
 });
 prowLayer.listMode = "hide";
 
+/* PROW others */
+var prowOthersRenderer = new SimpleRenderer({
+  symbol: new SimpleLineSymbol({
+    color: "#BF40BF",
+    width: "2px",
+  }),
+});
+
+export const prowOthersLayer = new FeatureLayer({
+  portalItem: {
+    id: "d96c5a8d86e54587ae09174b10fc90bd",
+    portal: {
+      url: "https://gis.railway-sector.com/portal",
+    },
+  },
+  title: "Sapang Balen River Realignment",
+  renderer: prowOthersRenderer,
+  elevationInfo: {
+    mode: "on-the-ground",
+  },
+});
+
 /* PNR */
 let pnrRenderer = new UniqueValueRenderer({
   field: "OwnershipType",
@@ -2784,7 +2806,13 @@ export const alignmentGroupLayer = new GroupLayer({
   title: "Alignment",
   visible: true,
   visibilityMode: "independent",
-  layers: [stationLayer, stationBoxLayer, pierHeadColumnLayer, chainageLayer],
+  layers: [
+    stationLayer,
+    stationBoxLayer,
+    pierHeadColumnLayer,
+    chainageLayer,
+    prowOthersLayer,
+  ],
 });
 
 export const nloLoOccupancyGroupLayer = new GroupLayer({
