@@ -10,6 +10,7 @@ import "@arcgis/map-components/components/arcgis-layer-list";
 import "@arcgis/map-components/components/arcgis-expand";
 import "@arcgis/map-components/components/arcgis-placement";
 import "@arcgis/map-components/components/arcgis-compass";
+import "@arcgis/map-components/components/arcgis-search";
 import {
   structureLayer,
   pierAccessLayer,
@@ -23,6 +24,7 @@ import {
   ngcp2_groupLayer,
   nloLoOccupancyGroupLayer,
   alignmentGroupLayer,
+  lotLayer,
 } from "../layers";
 
 import "@esri/calcite-components/dist/components/calcite-button";
@@ -30,6 +32,7 @@ import "@esri/calcite-components/dist/components/calcite-button";
 function MapDisplay() {
   const [sceneView, setSceneView] = useState();
   const arcgisScene = document.querySelector("arcgis-scene");
+  const arcgisSearch = document.querySelector("arcgis-search");
 
   useEffect(() => {
     if (sceneView) {
@@ -47,6 +50,40 @@ function MapDisplay() {
       arcgisScene.map.add(handedOverLotLayer);
       arcgisScene.map.ground.navigationConstraint = "none";
       arcgisScene.view.environment.atmosphereEnabled = false;
+
+      arcgisSearch.sources = [
+        {
+          layer: lotLayer,
+          searchFields: ["LotID"],
+          displayField: "LotID",
+          exactMatch: false,
+          outFields: ["LotID"],
+          name: "Lot ID",
+          placeholder: "example: 10083",
+        },
+        {
+          layer: structureLayer,
+          searchFields: ["StrucID"],
+          displayField: "StrucID",
+          exactMatch: false,
+          outFields: ["StrucID"],
+          name: "Structure ID",
+          placeholder: "example: NSRP-01-02-ML007",
+        },
+        {
+          layer: pierAccessLayer,
+          searchFields: ["PierNumber"],
+          displayField: "PierNumber",
+          exactMatch: false,
+          outFields: ["PierNumber"],
+          name: "Pier No",
+          zoomScale: 1000,
+          placeholder: "example: P-288",
+        },
+      ];
+      arcgisSearch.allPlaceholder = "LotID, StructureID, Chainage";
+      arcgisSearch.includeDefaultSourcesDisabled = true;
+      arcgisSearch.locationDisabled = true;
     }
   });
 
@@ -63,6 +100,12 @@ function MapDisplay() {
       }}
     >
       <arcgis-compass position="top-right"></arcgis-compass>
+      <arcgis-expand close-on-esc position="top-right" mode="floating">
+        <arcgis-search></arcgis-search>
+        {/* <arcgis-placement>
+          <calcite-button>Placeholder</calcite-button>
+        </arcgis-placement> */}
+      </arcgis-expand>
       <arcgis-zoom position="bottom-right"></arcgis-zoom>
     </arcgis-scene>
   );
