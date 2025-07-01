@@ -1192,25 +1192,25 @@ const pileCap = new PolygonSymbol3D({
 });
 
 const pierHeadRenderer = new UniqueValueRenderer({
-  defaultSymbol: new PolygonSymbol3D({
-    symbolLayers: [
-      {
-        type: "extrude",
-        size: 5, // in meters
-        material: {
-          color: "#E1E1E1",
-        },
-        edges: new SolidEdges3D({
-          color: "#4E4E4E",
-          size: 1.0,
-        }),
-      },
-    ],
-  }),
-  defaultLabel: "Other",
+  // defaultSymbol: new PolygonSymbol3D({
+  //   symbolLayers: [
+  //     {
+  //       type: "extrude",
+  //       size: 5, // in meters
+  //       material: {
+  //         color: "#E1E1E1",
+  //       },
+  //       edges: new SolidEdges3D({
+  //         color: "#4E4E4E",
+  //         size: 1.0,
+  //       }),
+  //     },
+  //   ],
+  // }),
+  // defaultLabel: "Other",
   field: "Layer",
   legendOptions: {
-    title: "Pier Head/Pier Column/Pile Cap",
+    title: "Pile Cap/Column",
   },
   uniqueValueInfos: [
     {
@@ -1241,7 +1241,7 @@ export const pierHeadColumnLayer = new FeatureLayer({
     },
   },
   layerId: 4,
-  title: "Pier Head/Column",
+  title: "Pile Cap/Column",
   definitionExpression: "Layer <> 'Pier_Head'",
 
   minScale: 150000,
