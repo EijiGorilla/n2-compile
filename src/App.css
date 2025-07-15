@@ -1,3 +1,10 @@
+.esri-attribution {
+  display: none;
+  /* or */
+  /* position: absolute;
+  left: -9999px; */
+}
+
 b {
   color: orange;
 }

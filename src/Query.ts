@@ -1579,6 +1579,7 @@ const layerVisibleFalse = () => {
   wallsLayer.visible = false;
   buildingLayer.visible = false;
 };
+
 export async function stationStructureDisplay(contractcp: any) {
   const queryExpression = "CP = '" + contractcp + "'";
   const queryAll = "1=1";
@@ -1599,7 +1600,7 @@ export async function stationStructureDisplay(contractcp: any) {
     columnsLayer.definitionExpression = queryExpression;
     floorsLayer.definitionExpression = queryExpression;
     wallsLayer.definitionExpression = queryExpression;
-
+    // layerVisibleFalse();
     layerVisibleTrue();
   }
 }

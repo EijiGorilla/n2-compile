@@ -25,14 +25,30 @@ import {
   nloLoOccupancyGroupLayer,
   alignmentGroupLayer,
   lotLayer,
+  pierHeadColumnLayer,
 } from "../layers";
-
+import * as reactiveUtils from "@arcgis/core/core/reactiveUtils";
 import "@esri/calcite-components/dist/components/calcite-button";
 
 function MapDisplay() {
   const [sceneView, setSceneView] = useState();
   const arcgisScene = document.querySelector("arcgis-scene");
   const arcgisSearch = document.querySelector("arcgis-search");
+
+  reactiveUtils.when(
+    () => pierHeadColumnLayer.visible === true,
+    () => (viaductLayer.visible = false)
+  );
+
+  reactiveUtils.when(
+    () => viaductLayer.visible === true,
+    () => (pierHeadColumnLayer.visible = false)
+  );
+
+  reactiveUtils.when(
+    () => viaductLayer.visible === false,
+    () => (pierHeadColumnLayer.visible = true)
+  );
 
   useEffect(() => {
     if (sceneView) {
