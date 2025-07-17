@@ -17,6 +17,7 @@ import {
 } from "../Query";
 import {
   chard_width,
+  construction_status,
   cutoff_days,
   primaryLabelColor,
   updatedDateCategoryNames,
@@ -341,8 +342,8 @@ const ViaductChart = () => {
       });
       legend.data.push(series);
     }
-    makeSeries("Complete", "comp");
-    makeSeries("Incomplete", "incomp");
+    makeSeries(construction_status[2], "comp");
+    makeSeries(construction_status[0], "incomp");
     // makeSeries('Delayed', 'delay');
     chart.appear(1000, 100);
 
