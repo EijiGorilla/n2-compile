@@ -1715,8 +1715,8 @@ export function defineActions(event: any) {
   }
 
   item.title === "Chainage" ||
-  item.title === "NLO (Non-Land Owner)" ||
-  item.title === "NLO/LO Ownership (Structure)" ||
+  item.title === "Households" ||
+  item.title === "Households Ownership (Structure)" ||
   item.title === "Occupancy (Structure)" ||
   item.title === "Structure" ||
   item.title === "NGCP Pole Relocation Working Area" ||

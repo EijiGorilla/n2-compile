@@ -329,7 +329,7 @@ const NloChart = memo(() => {
           marginTop: "10px",
         }}
       >
-        TOTAL NON-LAND OWNERS
+        Total Households
       </div>
       <CalciteLabel layout="inline">
         <b className="totalLotsNumber" style={{ color: valueLabelColor }}>

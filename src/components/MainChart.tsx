@@ -55,7 +55,7 @@ function MainChart() {
         <CalciteTabNav slot="title-group" id="thetabs">
           <CalciteTabTitle class="Land">Land</CalciteTabTitle>
           <CalciteTabTitle class="Structure">Structure</CalciteTabTitle>
-          <CalciteTabTitle class="NLO">NLO</CalciteTabTitle>
+          <CalciteTabTitle class="Households">Households</CalciteTabTitle>
           <CalciteTabTitle class="Tree">Tree</CalciteTabTitle>
           <CalciteTabTitle class="Utility">Utility</CalciteTabTitle>
           <CalciteTabTitle class="Viaduct">Viaduct</CalciteTabTitle>
